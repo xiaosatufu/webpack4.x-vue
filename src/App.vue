@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div :class="$style.box">
     222
-    <h1>{{title}}</h1>
+    <h1 :class="$style.title">{{title}}</h1>
     <P>{{content}}</P>
     <!-- <img src="./assets/1.JPG" alt=""> -->
   </div>
@@ -18,5 +18,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"  module>
+.box {
+    width: 100px;
+    height: 100px;
+    .title {
+        color: red;
+    }
+}
 </style>

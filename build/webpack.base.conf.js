@@ -1,9 +1,11 @@
 const path = require("path");
-const webpack = require('webpack')
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const AutoDllPlugin = require('autodll-webpack-plugin')
+const AutoDllPlugin = require("autodll-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
   entry: {
     bundle: path.resolve(__dirname, "../src/main.js")
@@ -46,17 +48,41 @@ module.exports = {
         test: /\.vue$/,
         loader: "vue-loader"
       },
+      //   {
+      //     test: /\.scss/,
+      //     use: ExtractTextPlugin.extract({
+      //       use: [
+      //         {
+      //           loader: "css-loader"
+      //         },
+      //         {
+      //           loader: "sass-loader"
+      //         }
+      //       ],
+      //       fallback: "style-loader"
+      //     })
+      //   }
       {
-        test: /\.l?s?css$/,
+        test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          // {
-          //     loader:'style-loader'
-
-          // },
+          "vue-style-loader",
+        //   {
+        //     loader: MiniCssExtractPlugin.loader,
+        //     options: {
+        //     //   hmr: process.env.NODE_ENV === "development",
+        //       reloadAll: true,
+        //     }
+        //   },
           {
-            loader: "css-loader"
+            loader: "css-loader",
+            options: {
+              // 开启 CSS Modules
+              modules: true,
+              // 自定义生成的类名
+              localIdentName: "[local]_[hash:base64:8]"
+            }
           },
+
           {
             loader: "postcss-loader"
           },
@@ -65,9 +91,39 @@ module.exports = {
           }
         ]
       }
+      //   {
+      //     test: /\.scss$/,
+      //     use: [
+      //       "vue-style-loader",
+      //       MiniCssExtractPlugin.loader,
+      //       // {
+      //       //     loader:'style-loader'
+
+      //       // },
+      //       {
+      //         loader: "css-loader",
+      //         options: {
+      //           // 开启 CSS Modules
+      //           modules: true,
+      //           // 自定义生成的类名
+      //           localIdentName: "[local]_[hash:base64:8]"
+      //         }
+      //       },
+      //       {
+      //         loader: "postcss-loader"
+      //       },
+      //       {
+      //         loader: "sass-loader"
+      //       }
+      //     ]
+      //   }
     ]
   },
   plugins: [
+    // new ExtractTextPlugin(
+    //   filename: utils.assetsPath("css/[name].[contenthash].css"),
+    //   allChunks: false
+    // ),
     new VueLoaderPlugin(),
     new webpack.optimize.SplitChunksPlugin(),
     new HtmlWebpackPlugin({
@@ -78,21 +134,21 @@ module.exports = {
       chunkFilename: "static/css/[name].[hash].css"
     }),
     new AutoDllPlugin({
-        inject:true,
-        debug:false,
-        filename:'[name]_[hash].js',
-        path:'static',
-        entry:{
-            vue:[
-                'vue',
-                // 'vue-router'
-            ]
-        }
+      inject: true,
+      debug: false,
+      filename: "[name]_[hash].js",
+      path: "static",
+      entry: {
+        vue: [
+          "vue"
+          // 'vue-router'
+        ]
+      }
     })
   ],
   resolve: {
     alias: {
-      'vue$': "vue/dist/vue.esm.js",
+      vue$: "vue/dist/vue.esm.js",
       "@": path.resolve(__dirname, "../src")
     },
     extensions: ["*", ".js", ".json", ".vue"]
