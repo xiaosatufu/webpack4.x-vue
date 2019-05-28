@@ -23,7 +23,7 @@ export default {
     width: 100px;
     height: 100px;
     .title {
-        color: blue;
+        color: red;
     }
 }
 </style>
