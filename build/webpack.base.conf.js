@@ -6,6 +6,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const AutoDllPlugin = require("autodll-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+
+console.log('-------------------')
+console.log(process.env.NODE_ENV)
+console.log('-------------------')
+
+
 module.exports = {
   entry: {
     bundle: path.resolve(__dirname, "../src/main.js")
@@ -48,31 +54,13 @@ module.exports = {
         test: /\.vue$/,
         loader: "vue-loader"
       },
-      //   {
-      //     test: /\.scss/,
-      //     use: ExtractTextPlugin.extract({
-      //       use: [
-      //         {
-      //           loader: "css-loader"
-      //         },
-      //         {
-      //           loader: "sass-loader"
-      //         }
-      //       ],
-      //       fallback: "style-loader"
-      //     })
-      //   }
       {
         test: /\.scss$/,
         use: [
-          "vue-style-loader",
-        //   {
-        //     loader: MiniCssExtractPlugin.loader,
-        //     options: {
-        //     //   hmr: process.env.NODE_ENV === "development",
-        //       reloadAll: true,
-        //     }
-        //   },
+           process.env.NODE_ENV != 'production'
+            ? 'vue-style-loader'
+            : MiniCssExtractPlugin.loader,
+          // MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
