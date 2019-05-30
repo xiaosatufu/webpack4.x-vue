@@ -9,6 +9,26 @@ import App from './App'
 Vue.use(Vuex)
 
 
+
+
+const store = new Vuex.Store({
+  state:{
+    count:0
+  },
+  mutations:{
+    aaa(state) {
+      state.count++
+    }
+  }
+})
+
+
+
+
+store.commit('aaa')
+console.log(store.state.count)
+
+
 // const Foo = {
 //   template:'<div>1</div>'
 // }
