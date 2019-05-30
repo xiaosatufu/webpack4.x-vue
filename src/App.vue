@@ -1,9 +1,13 @@
 <template>
   <div :class="$style.box">
-    222
-    <h1 :class="$style.title">{{title}}</h1>
-    <P>{{content}}</P>
-    <!-- <img src="./assets/1.JPG" alt=""> -->
+    <!-- 222 -->
+    <!-- <h1 :class="$style.title">{{title}}</h1> -->
+    <!-- <P>{{content}}</P> -->
+    <!-- <img src="@/assets/1.jpg" alt=""> -->
+    <div>main</div>
+    <router-link to="/foo">foo</router-link>
+    <router-link to="/bar">bar</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
