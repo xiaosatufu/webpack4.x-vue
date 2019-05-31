@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 const Foo = () => import(/* webpackChunkName:'foo'*/'../pages/foo.vue');
 const Bar = () => import(/* webpackChunkName:'bar'*/'../pages/bar.vue');
+const Count = () => import(/* webpackChunkName:'bar'*/'../pages/count.vue');
 // const Foo = () => import('./Foo.vue')
 
 // const Foo = {
@@ -22,6 +23,10 @@ const router = new VueRouter({
         {
             path:'/bar',
             component:Bar
+        },
+        {
+            path:'/count',
+            component:Count
         }
     ]
 })

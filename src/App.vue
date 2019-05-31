@@ -7,6 +7,7 @@
     <div>main</div>
     <router-link to="/foo">foo</router-link>
     <router-link to="/bar">bar</router-link>
+    <router-link to="/count">count</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -24,8 +25,8 @@ export default {
 
 <style lang="scss"  module>
 .box {
-    width: 100px;
-    height: 100px;
+    // width: 100px;
+    // height: 100px;
     .title {
         color: red;
     }
